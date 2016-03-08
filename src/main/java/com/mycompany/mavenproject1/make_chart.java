@@ -36,7 +36,7 @@ import org.jfree.ui.TextAnchor;
  */
 public class make_chart extends ApplicationFrame {
 
-    public make_chart(String title, ArrayList<String> name, HashMap<String, ArrayList<Integer>> pressure, HashMap<String, Float> tang, ArrayList<Float> date) {
+    public make_chart(String title, ArrayList<String> name, HashMap<Float, ArrayList<Integer>> pressure, HashMap<Float, Float> tang, ArrayList<Float> date) {
         super(title);
         final XYDataset dataset = createDataset(name, pressure, tang, date);
         final JFreeChart chart = createChart(title, dataset);
@@ -45,12 +45,12 @@ public class make_chart extends ApplicationFrame {
         setContentPane(chartPanel);
     }
 
-    private XYDataset createDataset(ArrayList<String> name, HashMap<String, ArrayList<Integer>> pressure, HashMap<String, Float> tang, ArrayList<Float> date) {
+    private XYDataset createDataset(ArrayList<String> name, HashMap<Float, ArrayList<Integer>> pressure, HashMap<Float, Float> tang, ArrayList<Float> date) {
         final XYSeries series3 = new XYSeries("First");
         final XYSeries series4 = new XYSeries("Second");
         final XYSeries series5 = new XYSeries("First");
         for (Float d : date) {
-            for (String n : name) {
+           
                 /*
                 ArrayList<Integer> press = pressure.get(n);
                 int size = press.size();
@@ -64,11 +64,12 @@ public class make_chart extends ApplicationFrame {
                     }
                 }
                         */
-                Float sugr = tang.get(n);
-                float suger = sugr.floatValue();
-                series5.add(d.floatValue(), suger);
                 
-            }
+                Float sugr = tang.get(d);
+                float suger = sugr.floatValue();
+                series5.add(d.floatValue(), tang.get(d).floatValue());
+                
+                
         }
         final XYSeriesCollection dataset = new XYSeriesCollection();
         //dataset.addSeries(series3);
@@ -121,26 +122,24 @@ public class make_chart extends ApplicationFrame {
         ArrayList<Float> date = new ArrayList<Float>();
         ArrayList<Float> tang1 = new ArrayList<Float>();
         ArrayList<String> name = new ArrayList<String>();
-        HashMap<String, ArrayList<Integer>> pressure1 = new HashMap<String, ArrayList<Integer>>();
-        HashMap<String, Float> tang = new HashMap<String, Float>();
-        name.add("a");
-        name.add("b");
-        name.add("c");
+        HashMap<Float, ArrayList<Integer>> pressure1 = new HashMap<Float, ArrayList<Integer>>();
+        HashMap<Float, Float> tang = new HashMap<Float, Float>();
+        
 
         date.add((float) 10.2);
         date.add((float) 10.3);
         date.add((float) 10.4);
 
-        pressure.add(20);
-        pressure.add(2);
-        pressure.add(30);
-        pressure.add(1);
-        pressure.add(40);
-        pressure.add(3);
-        pressure1.put(name.get(0), pressure);
-        tang.put(name.get(0), (float) 11);
-        tang.put(name.get(1), (float) 10.3);
-        tang.put(name.get(2), (float) 9.0);
+        pressure.add(120);
+        pressure.add(70);
+        pressure.add(130);
+        pressure.add(80);
+        pressure.add(140);
+        pressure.add(90);
+        pressure1.put(date.get(0), pressure);
+        tang.put(date.get(0), (float) 11);
+        tang.put(date.get(1), (float) 10.3);
+        tang.put(date.get(2), (float) 9.0);
         // String title, ArrayList<String> name, HashMap<String, ArrayList<Integer>> pressure, HashMap<String, Float> tang, ArrayList<Float> date
         final make_chart demo = new make_chart("test", name, pressure1, tang, date);
         demo.pack();

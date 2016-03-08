@@ -49,7 +49,9 @@ public class write_xlsx {
         }
         int rownum = mySheet.getLastRowNum() + 1;
         Row row1 = mySheet.createRow(rownum++);
+        
         Cell cell_date = row1.createCell(0);
+        
         Date date = new Date();
         cell_date.setCellValue(date.toString());
         int i = 0;
